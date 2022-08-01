@@ -1,0 +1,11 @@
+div#bg{
+    height: 100vh;
+    background-image: url(/public/images/bg.webp);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+div.modal{
+    transition: all 500ms;
+}

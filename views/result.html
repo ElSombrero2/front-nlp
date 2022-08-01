@@ -1,0 +1,131 @@
+<div class="row">
+    <div class="col-sm-6" style="padding: 200px; padding-bottom: 0; padding-top: 70px;">
+        <p class="title is-1 has-text-link" style="margin-bottom: 2px;">Graphique</p>
+        <p class="title is-3" style="font-weight: normal;">De repartition</p>
+        <br><br>
+        <canvas id="chart" width="400" height="400"></canvas>
+    </div>
+    <div class="col-sm-6">
+        <div class="container" style="padding-top: 70px;">
+            <p class="title is-1 has-text-link" style="margin-bottom: 2px;">Resultat</p>
+            <p class="title is-3" style="font-weight: normal;">De vos sentiments</p>
+            <br>
+            <br>
+            <div class="head" style="width: 100%; display: flex;align-items: center;">
+                <div style="margin-right: 10px;">
+                    <lottie-player src="/public/animations/{{Emotion.Sentiment}}.json"  background="transparent"  speed="1"  style="width: 200px; height: 200px;"  loop autoplay></lottie-player>
+                </div>
+                <div>
+                    <p class="title is-5" style="margin-bottom: 5px;">
+                        Phrase : 
+                        <span style="font-weight: normal;">
+                            "{{sentence}}"
+                        </span>
+                    </p>
+                    <p class="title is-1 has-text-link" style="margin-bottom: 5px;">
+                        {{Emotion.Sentiment}}
+                    </p>
+                    <p class="title is-4"><span id="percent">{{stats}}%</span> - <span>{{Polarite.Polarite}}</span></p>
+                </div>
+            </div>
+            <br><br>
+            <p class="title is-4"><span class="has-text-link">Vos Résultats</span> étaient-ils corrects ?</p>
+            <br>
+            <form action="/log" method="post" id="correct">
+                <input type="hidden" name="sentence" value="{{sentence}}">
+                <input type="hidden" name="feeling" value="{{Emotion.Sentiment}}">
+                <input type="hidden" name="_feeling" value="{{Emotion.Sentiment}}">
+                <input type="hidden" name="polarite" value="{{Polarite.Polarite}}">
+                <input type="hidden" name="_polarite" value="{{Polarite.Polarite}}">
+
+            </form>
+            <div class="buttons has-addons">
+                <button id="submit" class="button is-success">Oui &nbsp; <i class="fas fa-thumbs-up"></i></button>
+                <button class="button is-danger modal-toggle">Non &nbsp; <i style="margin-top: 2px;" class="fas fa-thumbs-down"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modal">
+    <div class="modal-background modal-toggle"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Correction</p>
+        <button class="delete modal-toggle" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <form action="/log" method="post" id="log-form">
+            <input type="hidden" name="sentence" value="{{sentence}}">
+            <input type="hidden" name="feeling" value="{{Emotion.Sentiment}}">
+            <input type="hidden" name="polarite" value="{{Polarite.Polarite}}">
+            <div class="field">
+                <label class="title is-5">Quel sentiment correspond à votre phrase?</label>
+                <br>
+                <div class="control" style="display: flex;">
+                    <div>
+                        <label class="radio">
+                            <input checked="checked" value="Alahelo" type="radio" name="_feeling">
+                            Alahelo
+                        </label>
+                        <br>
+                        <label class="radio">
+                            <input type="radio" name="_feeling" value="Tezitra">
+                            Tezitra
+                        </label>
+                        <br>
+                        <label class="radio">
+                            <input type="radio" name="_feeling" value="Faly">
+                            Faly
+                        </label>
+                    </div>
+                    <div style="margin-left: 30px;">
+                        <label class="radio">
+                            <input type="radio" name="_feeling" value="Tia">
+                            Tia
+                        </label>
+                        <br>
+                        <label class="radio">
+                            <input type="radio" name="_feeling" value="Tahotra">
+                            Tahotra
+                        </label>
+                        <br>
+                        <label class="radio">
+                            <input type="radio" name="_feeling" value="Gaga">
+                            Gaga
+                        </label>
+                    </div>
+                </div>
+              </div>
+              <br>
+              <div class="field">
+                <div class="control">
+                    <label class="title is-5">Quelle est la polarité?</label>
+                    <br>
+                    <label class="radio">
+                        <input checked="checked" value="Positif" type="radio" name="_polarite">
+                        Positif
+                    </label>
+                    <label class="radio">
+                        <input type="radio" value="Negatif" name="_polarite">
+                        Negatif
+                    </label>
+                </div>
+              </div>
+        </form>
+      </section>
+      <footer class="modal-card-foot">
+        <button id="submit-log" class="button is-success">Soumettre</button>
+        <div class="button is-danger modal-toggle">Annuler</div>
+      </footer>
+    </div>
+</div>
+
+<script>
+    const text = '{{graph}}'.replace(/&quot;/g, '"');
+    const graph = JSON.parse(text)
+</script>
+<script src="/public/script/modal.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.2/chart.min.js" integrity="sha512-zjlf0U0eJmSo1Le4/zcZI51ks5SjuQXkU0yOdsOBubjSmio9iCUp8XPLkEAADZNBdR9crRy3cniZ65LF2w8sRA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js" integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/public/script/chart.js"></script>

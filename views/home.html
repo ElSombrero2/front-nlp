@@ -1,0 +1,45 @@
+<link rel="stylesheet" href="/public/css/home.css">
+
+<div class="row">
+    <div class="col-sm-6" id="bg">
+    </div>
+    <div class="col-sm-6">
+        <div class="container" style="padding: 50px;">
+            <div class="head" style="width: 100%; display: flex;align-items: center;">
+                <div style="margin-right: 10px;">
+                    <lottie-player src="/public/animations/39701-robot-bot-3d.json"  background="transparent"  speed="1"  style="width: 150px; height: 150px;"  loop autoplay></lottie-player>
+                </div>
+                <div>
+                    <p class="title is-1 has-text-link" style="margin-bottom: 5px;">
+                        Analyse
+                    </p>
+                    <p class="title is-4">De Sentiments</p>
+                </div>
+            </div>
+            <br>
+            <p>
+                Le NLP est la discipline du machine learning liée 
+                à la compréhension du langage par les machines.
+                Les dernières avancées dans ce domaine ont permis 
+                l’émergence d’applications intéressantes (effrayantes aussi).
+            </p>
+            <br><br>
+            <p class="title is-3"><span class="has-text-link">Analyser</span> Une Phrase</p>
+            <form method="get" action="/result">
+                <div class="field">
+                    <div class="control">
+                        <input style="max-width: 360px;" required name="sentence" class="input" placeholder="Phrase en malgache. Ex: Faly Aho!" />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-link">
+                            <i class="fas fa-analytics"></i> Analyser
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
